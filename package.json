@@ -1,0 +1,24 @@
+{
+  "name": "simple_express",
+  "version": "0.0.1",
+  "description": "simple express otel app",
+  "main": "index.js",
+  "scripts": {
+    "start": "node -r ./tracing.js index.js",
+    "docker:start": "cd ./otel-collector && docker-compose down && docker-compose up",
+    "test": "echo \"We'll test in prod!\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@opentelemetry/core": "^0.12.0",
+    "@opentelemetry/exporter-collector": "^0.13.0",
+    "@opentelemetry/exporter-zipkin": "^0.12.0",
+    "@opentelemetry/node": "^0.12.0",
+    "@opentelemetry/plugin-express": "^0.11.0",
+    "@opentelemetry/plugin-http": "^0.12.0",
+    "@opentelemetry/plugin-https": "^0.12.0",
+    "@opentelemetry/tracing": "^0.12.0",
+    "express": "^4.17.1"
+  }
+}

@@ -1,0 +1,25 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+      http:
+        cors_allowed_origins:
+        - http://*
+        - https://*
+
+exporters:
+  newrelic:
+    apikey: ${NEW_RELIC_API_KEY}
+    spans_url_override: ${NEW_RELIC_TRACE_URL}
+    metrics_url_override: ${NEW_RELIC_METRIC_URL}
+
+processors:
+  batch:
+  queued_retry:
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      exporters: [newrelic]
+      processors: [batch, queued_retry]

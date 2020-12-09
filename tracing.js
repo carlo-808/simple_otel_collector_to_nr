@@ -1,6 +1,7 @@
 'use strict'
 const { NodeTracerProvider } = require('@opentelemetry/node')
 const { BatchSpanProcessor } = require('@opentelemetry/tracing')
+const { ConsoleLogger,  LogLevel} = require('@opentelemetry/core')
 const { BasicTracerProvider, ConsoleSpanExporter, SimpleSpanProcessor } = require('@opentelemetry/tracing')
 const { ZipkinExporter } = require('@opentelemetry/exporter-zipkin')
 const { CollectorTraceExporter } = require('@opentelemetry/exporter-collector')
@@ -15,12 +16,14 @@ const instanceResource = new Resource({
 
 const mergedResource = Resource.createTelemetrySDKResource().merge(instanceResource)
 
-const exporter = new CollectorTraceExporter({})
+const exporter = new CollectorTraceExporter({
+  logger: new ConsoleLogger(LogLevel.DEBUG)
+})
 
 const traceProvider = new NodeTracerProvider({
   resource: mergedResource
 })
 
-traceProvider.addSpanProcessor(new SimpleSpanProcessor(exporter))
+traceProvider.addSpanProcessor(new BatchSpanProcessor(exporter))
 
 traceProvider.register()

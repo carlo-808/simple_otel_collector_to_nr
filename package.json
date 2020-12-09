@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node -r ./tracing.js index.js",
+    "start:debug": "node --trace-warnings -r ./tracing.js index.js",
     "docker:start": "cd ./otel-collector && docker-compose down && docker-compose up",
     "test": "echo \"We'll test in prod!\" && exit 1"
   },

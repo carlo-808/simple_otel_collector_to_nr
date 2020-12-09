@@ -5,9 +5,9 @@ const app = express()
 const PORT = 9090
 
 app.get('/', (req, res) => {
-	res.send('Chrimbus!')
+  res.send('Chrimbus!')
 })
 
 app.listen(PORT, () => {
-	console.log(`app listening at port: ${PORT}`)
+  console.log(`app listening at port: ${PORT}`)
 })

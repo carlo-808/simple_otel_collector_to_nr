@@ -12,6 +12,14 @@ Start the collector with this command:
 
 `npm run docker:start`
 
+**Note**
+
+This example overrides the New Relic exporter trace and metric URLs. Typically you will not need those set and the New Relic exporter config in `collector.yaml` should look like this:
+```
+exporters:
+  newrelic:
+    apikey: ${NEW_RELIC_API_KEY}
+```
 
 ### Express Application
 Set the `SERVICE_RESOURCE.NAME` in the `tracing.js` file.

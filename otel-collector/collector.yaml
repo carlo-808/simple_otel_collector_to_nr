@@ -23,3 +23,7 @@ service:
       receivers: [otlp]
       exporters: [newrelic]
       processors: [batch, queued_retry]
+    metrics:
+      receivers: [otlp]
+      exporters: [newrelic]
+      processors: [batch, queued_retry]

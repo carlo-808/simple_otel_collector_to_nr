@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node -r ./tracing.js index.js",
     "start:debug": "node --trace-warnings -r ./tracing.js index.js",
-    "start:inspect": "node --inspect-brk -r ./tracing.js index.js",
+    "start:inspect": "node --inspect -r ./tracing.js index.js",
+    "start:inspect-brk": "node --inspect-brk -r ./tracing.js index.js",
     "start:unhandled": "node --inspect --unhandled-rejections=strict -r ./tracing.js index.js",
     "docker:start": "cd ./otel-collector && docker-compose down && docker-compose up",
     "test": "echo \"We'll test in prod!\" && exit 1"

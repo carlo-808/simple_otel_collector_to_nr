@@ -12,6 +12,7 @@ exporters:
     apikey: ${NEW_RELIC_API_KEY}
     spans_url_override: ${NEW_RELIC_TRACE_URL}
     metrics_url_override: ${NEW_RELIC_METRIC_URL}
+    timeout: 30s
 
 processors:
   batch:

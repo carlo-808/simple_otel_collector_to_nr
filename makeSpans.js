@@ -27,7 +27,7 @@ const tracer = opentelemetry.trace.getTracer('example-collector-exporter-node')
 
 // Create a span. A span must be closed.
 const parentSpan = tracer.startSpan('main', {
-	kind: opentelemetry.SpanKind.SERVER
+  kind: opentelemetry.SpanKind.SERVER
 })
 for (let i = 0; i < 10; i += 1) {
   doWork(parentSpan)
@@ -42,12 +42,12 @@ setTimeout(() => {
 }, 2000)
 
 function doWork(parent) {
-	// TODO: will have to update to the commented code with GA version
+  // TODO: will have to update to the commented code with GA version
   // const ctx = opentelemetry.setSpan(opentelemetry.context.active(), parent)
   const span = tracer.startSpan('childSpan', {
-		parent,
-		kind: opentelemetry.SpanKind.SERVER
-	})
+    parent,
+    kind: opentelemetry.SpanKind.SERVER
+  })
 
   // simulate some random work.
   for (let i = 0; i <= Math.floor(Math.random() * 40000000); i += 1) {

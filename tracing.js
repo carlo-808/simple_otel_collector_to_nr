@@ -7,6 +7,8 @@ const { BatchSpanProcessor } = require('@opentelemetry/tracing')
 const { CollectorTraceExporter } = require('@opentelemetry/exporter-collector')
 const { Resource, SERVICE_RESOURCE } = require('@opentelemetry/resources')
 const os = require('os')
+const { Console } = require('console')
+const { ConsoleLogger, LogLevel } = require('@opentelemetry/core')
 
 const identifier = process.env.HOSTNAME || os.hostname()
 const instanceResource = new Resource({
@@ -21,7 +23,17 @@ const exporter = new CollectorTraceExporter({
 })
 
 const traceProvider = new NodeTracerProvider({
-  resource: mergedResource
+  resource: mergedResource,
+  plugins: {
+    http: {
+      enabled: true,
+      path: '@opentelemetry/plugin-http',
+      ignoreOutgoingUrls: [
+        /\/v1\/metrics/
+      ]
+    }
+  },
+  logger: new ConsoleLogger(LogLevel.DEBUG)
 })
 
 traceProvider.addSpanProcessor(new BatchSpanProcessor(exporter))

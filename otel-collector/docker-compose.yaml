@@ -4,7 +4,7 @@ services:
   # Collector
   collector:
     env_file: ../.env
-    image: otel/opentelemetry-collector-contrib:0.16.0
+    image: otel/opentelemetry-collector-contrib:0.17.0
     command: ["--config=/conf/collector.yaml", "--log-level=DEBUG"]
     volumes:
       - ./collector.yaml:/conf/collector.yaml

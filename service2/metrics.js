@@ -5,7 +5,8 @@ const { ConsoleLogger, LogLevel } = require('@opentelemetry/core')
 const { CollectorMetricExporter } = require('@opentelemetry/exporter-collector')
 
 const metricExporter = new CollectorMetricExporter({
-  serviceName: 'basic-metric-service'
+  serviceName: 'carlotel2',
+  url: 'http://collector:55681/v1/metrics'
 })
 
 const meter = new MeterProvider({

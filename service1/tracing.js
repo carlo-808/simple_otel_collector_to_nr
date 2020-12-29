@@ -8,7 +8,7 @@ const { CollectorTraceExporter } = require('@opentelemetry/exporter-collector')
 const { Resource, SERVICE_RESOURCE } = require('@opentelemetry/resources')
 const os = require('os')
 const { Console } = require('console')
-const { ConsoleLogger, LogLevel } = require('@opentelemetry/core')
+const { ConsoleLogger, LogLevel, TraceIdRatioBasedSampler } = require('@opentelemetry/core')
 
 const identifier = process.env.HOSTNAME || os.hostname()
 const instanceResource = new Resource({
@@ -19,6 +19,7 @@ const instanceResource = new Resource({
 const mergedResource = Resource.createTelemetrySDKResource().merge(instanceResource)
 
 const exporter = new CollectorTraceExporter({
+  url: 'http://collector:55681/v1/trace'
   // logger: new ConsoleLogger(LogLevel.DEBUG)
 })
 
@@ -33,6 +34,7 @@ const traceProvider = new NodeTracerProvider({
       ]
     }
   },
+  sampler: new TraceIdRatioBasedSampler(0.5),
   logger: new ConsoleLogger(LogLevel.DEBUG)
 })
 

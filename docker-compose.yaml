@@ -1,0 +1,49 @@
+version: "3"
+services:
+  # Collector
+  collector:
+    container_name: collector
+    env_file: .env
+    image: otel/opentelemetry-collector-contrib:0.17.0
+    command: ["--config=/conf/collector.yaml", "--log-level=DEBUG"]
+    volumes:
+      - ./otel-collector/collector.yaml:/conf/collector.yaml
+    networks:
+      - network
+    ports:
+      - "9464:9464"
+      - "55680:55680"
+      - "55681:55681"
+
+  service_one:
+    container_name: service_one
+    restart: always
+    image: service_one
+    build:
+      context: ./service1
+    volumes:
+      - ./service1/:/usr/src/app
+    depends_on:
+      - collector
+    networks:
+      - network
+    ports:
+      - 9123:9123
+
+  service_two:
+    container_name: service_two
+    restart: always
+    image: service_two
+    build:
+      context: ./service2
+    volumes:
+      - ./service2/:/usr/src/app
+    depends_on:
+      - collector
+    networks:
+      - network
+    ports:
+      - 9124:9124
+
+networks:
+  network:

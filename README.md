@@ -1,16 +1,14 @@
 ## Simple Express App
 ### Using Open Telemetry Collector and New Relic Exporter
 
+Before running the services, run `npm install` in the `service1` and `service1` directories to install all the packages.
+I'll fix this up later :)
 
 ### Collector
 You will need a `.env` file at the root of the project folder with the following environment variables:
 * NEW_RELIC_API_KEY
 * NEW_RELIC_TRACE_URL
 * NEW_RELIC_METRIC_URL
-
-Start the collector with this command:
-
-`npm run docker:start`
 
 **Note**
 
@@ -21,8 +19,5 @@ exporters:
     apikey: ${NEW_RELIC_API_KEY}
 ```
 
-### Express Application
-Set the `SERVICE_RESOURCE.NAME` in the `tracing.js` file.
-
-Start the app with this command:
-`npm run start`
+### Start it up
+run `docker-compose up` at the root of the project.

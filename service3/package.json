@@ -1,5 +1,5 @@
 {
-  "name": "service2",
+  "name": "service3",
   "version": "0.0.1",
   "description": "simple express otel app",
   "main": "index.js",

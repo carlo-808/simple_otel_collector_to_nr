@@ -6,7 +6,7 @@ const http = require('http')
 
 const app = express()
 
-const PORT = 9124
+const PORT = 9125
 
 const getService1Opts = () => {
   return {
@@ -46,23 +46,12 @@ app.use(metricsMiddleware())
 app.get('/', (req, res) => {
   res.json({
     ponyId: Math.floor(Math.random()*Math.exp(20)),
-    name: randomWords({exactly:1, wordsPerString:2, separator:'-'})[0]
+    pony: randomWords({exactly:1, wordsPerString:3, separator:'-'})[0]
   })
 })
 
 app.get('/ponies', async (req, res) => {
   const results = await doRequest(getService1Opts())
-
-  res.send(results)
-})
-
-app.get('/callServiceThree', async (req, res) => {
-  const results = await doRequest({
-    hostname: 'service_three',
-    port: 9125,
-    path: '/',
-    method: 'GET'
-  })
 
   res.send(results)
 })

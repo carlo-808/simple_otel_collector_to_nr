@@ -8,15 +8,6 @@ const app = express()
 
 const PORT = 9123
 
-const getService1Opts = () => {
-  return {
-    hostname: 'service_two',
-    port: 9124,
-    path: '/ponies',
-    method: 'GET'
-  }
-}
-
 const doRequest = (options) => {
   return new Promise((resolve, reject) => {
     const req = http.request(options, (res) => {
@@ -51,9 +42,18 @@ app.get('/', (req, res) => {
 })
 
 app.get('/callServiceTwo', async (req, res) => {
-  const results = await doRequest(getService1Opts())
+  const results = await doRequest({
+    hostname: 'service_two',
+    port: 9124,
+    path: '/ponies',
+    method: 'GET'
+  })
 
   res.send(results)
+})
+
+app.get('/err', (req, res) => {
+  const j = joker
 })
 
 app.get('/two', (req, res) => {

@@ -45,5 +45,20 @@ services:
     ports:
       - 9124:9124
 
+  service_three:
+    container_name: service_three
+    restart: always
+    image: service_three
+    build:
+      context: ./service3
+    volumes:
+      - ./service3/:/usr/src/app
+    depends_on:
+      - collector
+    networks:
+      - network
+    ports:
+      - 9125:9125
+
 networks:
   network:

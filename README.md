@@ -1,7 +1,9 @@
 ## Simple Express App
-### Using Open Telemetry Collector and New Relic Exporter
+### Using Opentelemetry Collector and New Relic Exporter
 
-Before running the services, run `npm install` in the `service1` and `service1` directories to install all the packages.
+This project contains three simple express services that call each other and report application telemetry using an OpenTelemetry Collector and New Relic Exporter.
+
+Before running the services, run `npm install` in the `service1`, `service2` and `service3` directories to install all the packages.
 I'll fix this up later :)
 
 ### Collector
@@ -21,3 +23,7 @@ exporters:
 
 ### Start it up
 run `docker-compose up` at the root of the project.
+
+### Notable Routes for testing various Opentelemetry scenarios
+- Service 3 uses a terrible sampler. The Service 2 route `/callServiceThree` can be used to try distributed tracing with a bad sampler in the mix.
+- Service 1 has a route `/callServiceTwo` which in turn makes a call back to Service 1. This tests the scenario where a trace contains two requests against the same server.

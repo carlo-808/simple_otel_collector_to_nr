@@ -52,6 +52,17 @@ app.get('/callServiceTwo', async (req, res) => {
   res.send(results)
 })
 
+app.get('/callServiceTwoErr', async (req, res) => {
+  const results = await doRequest({
+    hostname: 'service_two',
+    port: 9124,
+    path: '/callServiceOneErr',
+    method: 'GET'
+  })
+
+  res.send(results)
+})
+
 app.get('/err', (req, res) => {
   const j = joker
 })

@@ -1,6 +1,7 @@
 'use strict'
 const { NodeTracerProvider } = require('@opentelemetry/node')
 const { BatchSpanProcessor } = require('@opentelemetry/tracing')
+const otelapi = require("@opentelemetry/api")
 // const { ConsoleLogger,  LogLevel} = require('@opentelemetry/core')
 // const { BasicTracerProvider, ConsoleSpanExporter, SimpleSpanProcessor } = require('@opentelemetry/tracing')
 // const { ZipkinExporter } = require('@opentelemetry/exporter-zipkin')
@@ -9,6 +10,15 @@ const { Resource, SERVICE_RESOURCE } = require('@opentelemetry/resources')
 const os = require('os')
 const { Console } = require('console')
 const { ConsoleLogger, LogLevel, TraceIdRatioBasedSampler } = require('@opentelemetry/core')
+
+class AlwaysSample {
+  shouldSample(context, traceId) {
+    const cmp = Math.random()
+    return {
+      decision: otelapi.SamplingDecision.RECORD_AND_SAMPLED
+    }
+  }
+}
 
 const identifier = process.env.HOSTNAME || os.hostname()
 const instanceResource = new Resource({
@@ -34,7 +44,7 @@ const traceProvider = new NodeTracerProvider({
       ]
     }
   },
-  sampler: new TraceIdRatioBasedSampler(1),
+  sampler: new AlwaysSample(),
   logger: new ConsoleLogger(LogLevel.DEBUG)
 })
 

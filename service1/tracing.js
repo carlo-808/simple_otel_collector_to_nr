@@ -34,7 +34,7 @@ const traceProvider = new NodeTracerProvider({
       ]
     }
   },
-  sampler: new TraceIdRatioBasedSampler(0.5),
+  sampler: new TraceIdRatioBasedSampler(1),
   logger: new ConsoleLogger(LogLevel.DEBUG)
 })
 

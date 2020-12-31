@@ -56,6 +56,17 @@ app.get('/ponies', async (req, res) => {
   res.send(results)
 })
 
+app.get('/callServiceOneErr', async (req, res) => {
+  const results = await doRequest({
+    hostname: 'service_one',
+    port: 9123,
+    path: '/err',
+    method: 'GET'
+  })
+
+  res.send('woopsie')
+})
+
 app.get('/callServiceThree', async (req, res) => {
   const results = await doRequest({
     hostname: 'service_three',
